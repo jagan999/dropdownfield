@@ -15,4 +15,9 @@
 ## [1.0.0] - 3-Sep-2019
 
 * Minor code changes
-* Updated image to not show debug banner and change revision number to 1.0.0 after many users have used this package
+* Changed revision number to 1.0.0 after many users have used this package
+
+## [1.0.1] - 3-Sep-2019
+
+* Minor code changes
+* Updated image to not show debug banner
