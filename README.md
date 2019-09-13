@@ -4,7 +4,7 @@ This widget is meant to be used within a Flutter Form
 
 For a completely working Flutter project demonstrating the usage of dropdownfield, download the code from https://github.com/jagan999/dropdownfieldexample
 
-<img src="https://github.com/jagan999/dropdownfield/blob/master/example/dropdownfield.png" height="320px" >
+<img src="https://github.com/jagan999/dropdownfield/raw/master/example/dropdownfield.png" height="320px" >
 
 ## Installing:
 In your pubspec.yaml, add the following dependency

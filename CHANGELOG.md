@@ -25,3 +25,7 @@
 ## [1.0.2] - 13-Sep-2019
 
 * Moved code repository from BitBucket to github
+
+## [1.0.3] - 13-Sep-2019
+
+* Updated image location
