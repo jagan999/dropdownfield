@@ -21,3 +21,7 @@
 
 * Minor code changes
 * Updated image to not show debug banner
+
+## [1.0.2] - 13-Sep-2019
+
+* Moved code repository from BitBucket to github
