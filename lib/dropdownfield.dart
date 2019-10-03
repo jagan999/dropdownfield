@@ -214,6 +214,7 @@ class DropDownFieldState extends FormFieldState<String> {
     setState(() {
       _effectiveController.text = '';
     });
+    if (widget.onValueChanged != null) widget.onValueChanged('');
   }
 
   @override
