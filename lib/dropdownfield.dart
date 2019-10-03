@@ -19,6 +19,10 @@ import 'package:flutter/services.dart';
 ///
 ///labelStyle - TextStyle - Optional styling for Label text. Default is normal, gray colored font of size 18.0
 ///
+///emptyFieldText - String - Override text for empty field (Localization).
+///
+///invalidFieldText - String - Override text for invalid field (Localization).
+///
 ///required - bool - True will validate that this field has a non-null/non-empty value. Default is false
 ///
 ///enabled - bool - False will disable the field. You can unset this to use the Dropdown field as a read only form field. Default is true
@@ -47,6 +51,8 @@ class DropDownField extends FormField<String> {
   final String labelText;
   final TextStyle labelStyle;
   final TextStyle textStyle;
+  final String emptyFieldText;
+  final String invalidValueText;
   final bool required;
   final bool enabled;
   final List<dynamic> items;
@@ -63,10 +69,13 @@ class DropDownField extends FormField<String> {
   final TextEditingController controller;
 
   DropDownField(
-      {Key key,
+    {
+      Key key,
       this.controller,
       this.value,
       this.required: false,
+      this.emptyFieldText: 'This field cannot be empty!',
+      this.invalidValueText: 'Invalid value in this field!',
       this.icon,
       this.hintText,
       this.hintStyle: const TextStyle(
@@ -129,7 +138,7 @@ class DropDownField extends FormField<String> {
                         validator: (String newValue) {
                           if (required) {
                             if (newValue == null || newValue.isEmpty)
-                              return 'This field cannot be empty!';
+                              return emptyFieldText;
                           }
 
                           //Items null check added since there could be an initial brief period of time
@@ -138,7 +147,7 @@ class DropDownField extends FormField<String> {
                             if (strict &&
                                 newValue.isNotEmpty &&
                                 !items.contains(newValue))
-                              return 'Invalid value in this field!';
+                              return invalidValueText;
                           }
 
                           return null;
@@ -205,6 +214,7 @@ class DropDownFieldState extends FormFieldState<String> {
     setState(() {
       _effectiveController.text = '';
     });
+    if (widget.onValueChanged != null) widget.onValueChanged('');
   }
 
   @override
