@@ -30,7 +30,11 @@
 
 * Updated image location
 
-## [1.0.4] 0 03-Oct-2019
+## [1.0.4] - 03-Oct-2019
 
 * Added optional override parameters for invalid and empty text. Localization and Customization.
 * Added onValueChange() callback for onClear() to reset state (if is used as a filter).
+
+## [1.0.5] - 07-Oct-2019
+
+* Items on dropDown are now dynamic, not showing blank tiles if there are less items.
