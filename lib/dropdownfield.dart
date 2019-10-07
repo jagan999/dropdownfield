@@ -170,7 +170,7 @@ class DropDownField extends FormField<String> {
                     ? Container()
                     : Container(
                         alignment: Alignment.topCenter,
-                        height: state._getIdealHeight().toDouble(),
+                        height: state._getDynamicHeight(state._getChildren(state._items).length) * 48.0,
                         width: MediaQuery.of(field.context).size.width,
                         child: ListView(
                           cacheExtent: 0.0,
@@ -292,9 +292,9 @@ class DropDownFieldState extends FormFieldState<String> {
     );
   }
 
-  int _getIdealHeight() {
-    if (this._items.length < widget.itemsVisibleInDropdown){
-      return this._items.length;
+  int _getDynamicHeight(int itemsLength) {
+    if (itemsLength < widget.itemsVisibleInDropdown){
+      return itemsLength;
     }
 
     return widget.itemsVisibleInDropdown;
