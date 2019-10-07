@@ -42,7 +42,7 @@ import 'package:flutter/services.dart';
 ///strict - bool - True will validate if the value in this dropdown is amongst those suggestions listed.
 ///False will let user type in new values as well. Default is true
 ///
-///maxItemsVisibleInDropdown - int - Maximum number of suggestions to be shown by default in the Dropdown after which the list scrolls. Defaults to 3
+///itemsVisibleInDropdown - int - Maximum number of suggestions to be shown by default in the Dropdown after which the list scrolls. Defaults to 3
 class DropDownField extends FormField<String> {
   final dynamic value;
   final Widget icon;
@@ -60,7 +60,7 @@ class DropDownField extends FormField<String> {
   final FormFieldSetter<dynamic> setter;
   final ValueChanged<dynamic> onValueChanged;
   final bool strict;
-  final int maxItemsVisibleInDropdown;
+  final int itemsVisibleInDropdown;
 
   /// Controls the text being edited.
   ///
@@ -89,7 +89,7 @@ class DropDownField extends FormField<String> {
           fontWeight: FontWeight.bold, color: Colors.black, fontSize: 14.0),
       this.setter,
       this.onValueChanged,
-      this.maxItemsVisibleInDropdown: 3,
+      this.itemsVisibleInDropdown: 3,
       this.enabled: true,
       this.strict: true})
       : super(
@@ -293,11 +293,11 @@ class DropDownFieldState extends FormFieldState<String> {
   }
 
   int _getDynamicHeight(int itemsLength) {
-    if (itemsLength < widget.maxItemsVisibleInDropdown){
+    if (itemsLength < widget.itemsVisibleInDropdown){
       return itemsLength;
     }
 
-    return widget.maxItemsVisibleInDropdown;
+    return widget.itemsVisibleInDropdown;
   }
 
   void _handleControllerChanged() {
