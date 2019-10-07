@@ -19,6 +19,10 @@ import 'package:flutter/services.dart';
 ///
 ///labelStyle - TextStyle - Optional styling for Label text. Default is normal, gray colored font of size 18.0
 ///
+///emptyFieldText - String - Override text for empty field (Localization).
+///
+///invalidFieldText - String - Override text for invalid field (Localization).
+///
 ///required - bool - True will validate that this field has a non-null/non-empty value. Default is false
 ///
 ///enabled - bool - False will disable the field. You can unset this to use the Dropdown field as a read only form field. Default is true
@@ -38,7 +42,7 @@ import 'package:flutter/services.dart';
 ///strict - bool - True will validate if the value in this dropdown is amongst those suggestions listed.
 ///False will let user type in new values as well. Default is true
 ///
-///itemsVisibleInDropdown - int - Number of suggestions to be shown by default in the Dropdown after which the list scrolls. Defaults to 3
+///itemsVisibleInDropdown - int - Maximum number of suggestions to be shown by default in the Dropdown after which the list scrolls. Defaults to 3
 class DropDownField extends FormField<String> {
   final dynamic value;
   final Widget icon;
@@ -47,6 +51,8 @@ class DropDownField extends FormField<String> {
   final String labelText;
   final TextStyle labelStyle;
   final TextStyle textStyle;
+  final String emptyFieldText;
+  final String invalidValueText;
   final bool required;
   final bool enabled;
   final List<dynamic> items;
@@ -63,10 +69,13 @@ class DropDownField extends FormField<String> {
   final TextEditingController controller;
 
   DropDownField(
-      {Key key,
+    {
+      Key key,
       this.controller,
       this.value,
       this.required: false,
+      this.emptyFieldText: 'This field cannot be empty!',
+      this.invalidValueText: 'Invalid value in this field!',
       this.icon,
       this.hintText,
       this.hintStyle: const TextStyle(
@@ -129,7 +138,7 @@ class DropDownField extends FormField<String> {
                         validator: (String newValue) {
                           if (required) {
                             if (newValue == null || newValue.isEmpty)
-                              return 'This field cannot be empty!';
+                              return emptyFieldText;
                           }
 
                           //Items null check added since there could be an initial brief period of time
@@ -138,7 +147,7 @@ class DropDownField extends FormField<String> {
                             if (strict &&
                                 newValue.isNotEmpty &&
                                 !items.contains(newValue))
-                              return 'Invalid value in this field!';
+                              return invalidValueText;
                           }
 
                           return null;
@@ -161,8 +170,7 @@ class DropDownField extends FormField<String> {
                     ? Container()
                     : Container(
                         alignment: Alignment.topCenter,
-                        height: itemsVisibleInDropdown *
-                            48.0, //limit to default 3 items in dropdownlist view and then remaining scrolls
+                        height: state._getDynamicHeight(state._getChildren(state._items).length) * 48.0,
                         width: MediaQuery.of(field.context).size.width,
                         child: ListView(
                           cacheExtent: 0.0,
@@ -205,6 +213,7 @@ class DropDownFieldState extends FormFieldState<String> {
     setState(() {
       _effectiveController.text = '';
     });
+    if (widget.onValueChanged != null) widget.onValueChanged('');
   }
 
   @override
@@ -281,6 +290,14 @@ class DropDownFieldState extends FormFieldState<String> {
         });
       },
     );
+  }
+
+  int _getDynamicHeight(int itemsLength) {
+    if (itemsLength < widget.itemsVisibleInDropdown){
+      return itemsLength;
+    }
+
+    return widget.itemsVisibleInDropdown;
   }
 
   void _handleControllerChanged() {
