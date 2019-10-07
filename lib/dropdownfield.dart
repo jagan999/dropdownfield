@@ -170,8 +170,7 @@ class DropDownField extends FormField<String> {
                     ? Container()
                     : Container(
                         alignment: Alignment.topCenter,
-                        height: itemsVisibleInDropdown *
-                            48.0, //limit to default 3 items in dropdownlist view and then remaining scrolls
+                        height: state._getIdealHeight().toDouble(),
                         width: MediaQuery.of(field.context).size.width,
                         child: ListView(
                           cacheExtent: 0.0,
@@ -291,6 +290,14 @@ class DropDownFieldState extends FormFieldState<String> {
         });
       },
     );
+  }
+
+  int _getIdealHeight() {
+    if (this._items.length < widget.itemsVisibleInDropdown){
+      return this._items.length;
+    }
+
+    return widget.itemsVisibleInDropdown;
   }
 
   void _handleControllerChanged() {
