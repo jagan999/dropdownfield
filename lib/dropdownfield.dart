@@ -82,7 +82,8 @@ class DropDownField extends FormField<String> {
       this.onValueChanged,
       this.itemsVisibleInDropdown: 3,
       this.enabled: true,
-      this.strict: true})
+      this.strict: true,
+      InputDecoration decoration})
       : super(
           key: key,
           autovalidate: false,
@@ -91,7 +92,7 @@ class DropDownField extends FormField<String> {
           builder: (FormFieldState<String> field) {
             final DropDownFieldState state = field;
             final ScrollController _scrollController = ScrollController();
-            final InputDecoration effectiveDecoration = InputDecoration(
+            final InputDecoration effectiveDecoration = decoration ?? InputDecoration(
                 border: InputBorder.none,
                 filled: true,
                 icon: icon,
