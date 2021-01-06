@@ -210,7 +210,7 @@ class DropDownFieldState extends FormFieldState<String> {
   void clearValue() {
     setState(() {
       _effectiveController.text = '';
-      widget.controller.text = '';
+      _controller.text = '';
     });
   }
 
