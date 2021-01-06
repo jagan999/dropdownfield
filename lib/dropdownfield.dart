@@ -210,7 +210,7 @@ class DropDownFieldState extends FormFieldState<String> {
   void clearValue() {
     setState(() {
       _effectiveController.text = '';
-      _controller.text = '';
+      _handleControllerChanged();
     });
   }
 
