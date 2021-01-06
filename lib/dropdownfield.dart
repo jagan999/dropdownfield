@@ -158,7 +158,7 @@ class DropDownField extends FormField<String> {
                               state.clearValue();
                             },
                           )
-                        : null
+                        : SizedBox()
                   ],
                 ),
                 !state._showdropdown
