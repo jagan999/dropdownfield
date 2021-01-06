@@ -42,6 +42,7 @@ import 'package:flutter/services.dart';
 class DropDownField extends FormField<String> {
   final dynamic value;
   final Widget icon;
+  final bool clearIcon;
   final String hintText;
   final TextStyle hintStyle;
   final String labelText;
@@ -68,6 +69,7 @@ class DropDownField extends FormField<String> {
       this.value,
       this.required: false,
       this.icon,
+      this.clearIcon: true,
       this.hintText,
       this.hintStyle: const TextStyle(
           fontWeight: FontWeight.normal, color: Colors.grey, fontSize: 18.0),
@@ -148,13 +150,15 @@ class DropDownField extends FormField<String> {
                         inputFormatters: inputFormatters,
                       ),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.close),
-                      onPressed: () {
-                        if (!enabled) return;
-                        state.clearValue();
-                      },
-                    )
+                    (clearIcon)
+                        ? IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () {
+                              if (!enabled) return;
+                              state.clearValue();
+                            },
+                          )
+                        : null
                   ],
                 ),
                 !state._showdropdown
