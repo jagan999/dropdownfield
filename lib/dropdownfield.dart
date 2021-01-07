@@ -172,9 +172,6 @@ class DropDownField extends FormField<String> {
                           cacheExtent: 0.0,
                           scrollDirection: Axis.vertical,
                           controller: _scrollController,
-                          padding: (clearIcon)
-                              ? EdgeInsets.only(left: 40.0)
-                              : EdgeInsets.only(left: 0),
                           children: items.isNotEmpty
                               ? ListTile.divideTiles(
                                       context: field.context,
@@ -210,7 +207,6 @@ class DropDownFieldState extends FormFieldState<String> {
   void clearValue() {
     setState(() {
       _effectiveController.text = '';
-      _handleControllerChanged();
     });
   }
 
