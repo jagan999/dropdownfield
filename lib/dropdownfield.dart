@@ -11,6 +11,8 @@ import 'package:flutter/services.dart';
 ///
 ///icon - Widget - Optional icon to be shown to the left of the Dropdown field
 ///
+///clearIcon - bool - Optional close icon to be shown to the right of the Dropdown field
+///
 ///hintText - String - Optional Hint text to be shown
 ///
 ///hintStyle - TextStyle - Optional styling for Hint text. Default is normal, gray colored font of size 18.0
@@ -42,6 +44,7 @@ import 'package:flutter/services.dart';
 class DropDownField extends FormField<String> {
   final dynamic value;
   final Widget icon;
+  final bool clearIcon;
   final String hintText;
   final TextStyle hintStyle;
   final String labelText;
@@ -68,6 +71,7 @@ class DropDownField extends FormField<String> {
       this.value,
       this.required: false,
       this.icon,
+      this.clearIcon: true,
       this.hintText,
       this.hintStyle: const TextStyle(
           fontWeight: FontWeight.normal, color: Colors.grey, fontSize: 18.0),
@@ -148,13 +152,15 @@ class DropDownField extends FormField<String> {
                         inputFormatters: inputFormatters,
                       ),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.close),
-                      onPressed: () {
-                        if (!enabled) return;
-                        state.clearValue();
-                      },
-                    )
+                    (clearIcon)
+                        ? IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () {
+                              if (!enabled) return;
+                              state.clearValue();
+                            },
+                          )
+                        : SizedBox()
                   ],
                 ),
                 !state._showdropdown
@@ -168,13 +174,15 @@ class DropDownField extends FormField<String> {
                           cacheExtent: 0.0,
                           scrollDirection: Axis.vertical,
                           controller: _scrollController,
-                          padding: EdgeInsets.only(left: 40.0),
+                          padding: (icon != null)
+                              ? EdgeInsets.only(left: 40.0)
+                              : EdgeInsets.only(left: 0),
                           children: items.isNotEmpty
                               ? ListTile.divideTiles(
                                       context: field.context,
                                       tiles: state._getChildren(state._items))
                                   .toList()
-                              : List(),
+                              : [],
                         ),
                       ),
               ],
@@ -252,7 +260,7 @@ class DropDownFieldState extends FormFieldState<String> {
   }
 
   List<ListTile> _getChildren(List<String> items) {
-    List<ListTile> childItems = List();
+    List<ListTile> childItems = [];
     for (var item in items) {
       if (_searchText.isNotEmpty) {
         if (item.toUpperCase().contains(_searchText.toUpperCase()))
@@ -261,7 +269,7 @@ class DropDownFieldState extends FormFieldState<String> {
         childItems.add(_getListTile(item));
       }
     }
-    _isSearching ? childItems : List();
+    _isSearching ? childItems : [];
     return childItems;
   }
 
