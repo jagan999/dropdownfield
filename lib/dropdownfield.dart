@@ -174,7 +174,7 @@ class DropDownField extends FormField<String> {
                           cacheExtent: 0.0,
                           scrollDirection: Axis.vertical,
                           controller: _scrollController,
-                          padding: (icon)
+                          padding: (icon != null)
                               ? EdgeInsets.only(left: 40.0)
                               : EdgeInsets.only(left: 0),
                           children: items.isNotEmpty
