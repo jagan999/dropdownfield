@@ -129,7 +129,7 @@ class DropDownField extends FormField<String> {
                         validator: (String newValue) {
                           if (required) {
                             if (newValue == null || newValue.isEmpty)
-                              return 'This field cannot be empty!';
+                              return 'Dit veld mag niet leeg zijn';
                           }
 
                           //Items null check added since there could be an initial brief period of time
@@ -138,7 +138,7 @@ class DropDownField extends FormField<String> {
                             if (strict &&
                                 newValue.isNotEmpty &&
                                 !items.contains(newValue))
-                              return 'Invalid value in this field!';
+                              return 'Verkeerde waarde';
                           }
 
                           return null;
@@ -160,7 +160,7 @@ class DropDownField extends FormField<String> {
                 !state._showdropdown
                     ? Container()
                     : Container(
-                        alignment: Alignment.topCenter,
+                        alignment: Alignment.topLeft,
                         height: itemsVisibleInDropdown *
                             48.0, //limit to default 3 items in dropdownlist view and then remaining scrolls
                         width: MediaQuery.of(field.context).size.width,
